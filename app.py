@@ -12,32 +12,32 @@ import numpy as np
 from PIL import Image
 import pickle
 
-#load model
-with open('Model.pkl', 'rb') as f:
+# load model
+with open('model.pkl', 'rb') as f:
     model = pickle.load(f)
 
-# Set the title of the application
+# set title application
 st.title("Image Classification with MobileNetV2 by Rapeepan Srisuwan")
 
-# File uploader
-upload_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+# file upload
+upload_file = st.file_uploader("Upload image: ", type=["jpg", "jpeg", "png"])
 
 if upload_file is not None:
-    # Display the uploaded image
+    # display img on screen
     img = Image.open(upload_file)
-    st.image(img, caption="Uploaded Image", use_column_width=True)
-
-    # Preprocessing
+    st.image(img, caption= "Upload Image")
+    
+    # preprocessing
     img = img.resize((224, 224))
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
     x = preprocess_input(x)
-
-    # Make predictions
+    
+    # display prediction
     preds = model.predict(x)
-    top_preds = decode_predictions(preds, top=3)[0]
-
-    # Display predictions
-    st.subheader("Prediction:")
+    top_preds = decode_predictions(preds, top = 5) [0] # top 3 = show top 3 of accuracy
+    
+    #display prediction
+    st.subheader("Prediction: ")
     for i, pred in enumerate(top_preds):
         st.write(f"{i+1}. **{pred[1]}** - {round(pred[2]*100, 2)}%")
