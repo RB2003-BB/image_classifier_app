@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
+# -- coding: utf-8 --
 """
-Created on Sun Apr 20 13:53:07 2025
+Created on Sun Apr 20 13:51:49 2025
 
 @author: LAB
 """
